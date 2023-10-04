@@ -1,40 +1,39 @@
 package mjr.apps.personalfinanceapis.account;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 @Service
-@Transactional
 public class AccountService {
 
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountRepository repository;
 
-    public Mono<Account> createAccount(Account account) {
-        return accountRepository.save(account);
+    public Account createAccount(Account account) {
+        return repository.save(account);
     }
 
-    public Flux<Account> getAllAccounts() {
-        return accountRepository.findAll();
+    public List<Account> getAllAccounts() {
+        return repository.findAll();
     }
 
-    public Mono<Account> findById(Long accountId) {
-        return accountRepository.findById(accountId);
+    public Account findById(Long accountId) {
+        return repository.findById(accountId).get();
     }
 
-    public Mono<Account> updateAccount(Long accountId, Account account) {
-        return accountRepository.findById(accountId).flatMap(dbAccount -> {
+    public Account updateAccount(Long accountId, Account account) {
+        return repository.findById(accountId).map(dbAccount -> {
             dbAccount.setName(account.getName());
-            return accountRepository.save(dbAccount);
+            return repository.save(dbAccount);
+        }).orElseGet(() -> {
+            account.setId(accountId);
+            return repository.save(account);
         });
     }
 
-    public Mono<Account> deleteAccount(Long accountId) {
-        return accountRepository.findById(accountId)
-                .flatMap(existingAccount -> accountRepository.delete(existingAccount).then(Mono.just(existingAccount)));
+    public void deleteAccount(Long accountId) {
+        repository.deleteById(accountId);
     }
 }
