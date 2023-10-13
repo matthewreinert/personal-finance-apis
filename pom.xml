@@ -9,10 +9,9 @@
 		<relativePath/>
 		<!-- lookup parent from repository -->
 	</parent>
-	<groupId>mjr.apps</groupId>
-	<artifactId>personal-finance-apis</artifactId>
+	<groupId>mjr.personalfinance</groupId>
+	<artifactId>api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>personal-finance-apis</name>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
