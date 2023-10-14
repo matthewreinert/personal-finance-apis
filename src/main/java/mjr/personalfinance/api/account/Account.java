@@ -1,4 +1,4 @@
-package mjr.apps.personalfinanceapis.account;
+package mjr.personalfinance.api.account;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "accounts")
-public class Account {
+class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,8 +1,7 @@
-package mjr.apps.personalfinanceapis.account;
+package mjr.personalfinance.api.account;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,34 +16,38 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/accounts", produces = MediaType.APPLICATION_JSON_VALUE)
-public class AccountController {
+class AccountController {
 
-    @Autowired
-    private AccountService accountService;
+    private final AccountService service;
+    
+    AccountController(AccountService service) {
+    	this.service = service;
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Account create(@RequestBody Account account) {
-        return accountService.createAccount(account);
+    Account create(@RequestBody Account account) {
+        return service.createAccount(account);
     }
 
     @GetMapping
-    public List<Account> getAllAccounts() {
-        return accountService.getAllAccounts();
+    Accounts getAllAccounts() {
+        List<Account> allAccounts = service.getAllAccounts();
+        return Accounts.builder().accounts(allAccounts).build();
     }
 
     @GetMapping("/{accountId}")
-    public Account getAccountById(@PathVariable Long accountId) {
-        return accountService.findById(accountId);
+    Account getAccountById(@PathVariable Long accountId) {
+        return service.findById(accountId);
     }
 
     @PutMapping("/{accountId}")
-    public Account updateAccountById(@PathVariable Long accountId, @RequestBody Account account) {
-        return accountService.updateAccount(accountId, account);
+    Account updateAccountById(@PathVariable Long accountId, @RequestBody Account account) {
+        return service.updateAccount(accountId, account);
     }
 
     @DeleteMapping("/{accountId}")
-    public void deleteAccountById(@PathVariable Long accountId) {
-        accountService.deleteAccount(accountId);
+    void deleteAccountById(@PathVariable Long accountId) {
+        service.deleteAccount(accountId);
     }
 }

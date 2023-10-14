@@ -1,10 +1,10 @@
-package mjr.personalfinance.apis;
+package mjr.personalfinance.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApisApplicationTests {
+class ApiApplicationTests {
 
 	@Test
 	void contextLoads() {
