@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 class AccountService {
 
     private final AccountRepository repository;
-    
+
     AccountService(AccountRepository repository) {
-    	this.repository = repository;
+        this.repository = repository;
     }
 
     Account createAccount(Account account) {
@@ -21,12 +21,12 @@ class AccountService {
         return repository.findAll();
     }
 
-    Account findById(Long accountId) {
+    Account findById(Integer accountId) {
         return repository.findById(accountId).orElseThrow(() -> new AccountNotFoundException(accountId));
-        
+
     }
 
-    Account updateAccount(Long accountId, Account account) {
+    Account updateAccount(Integer accountId, Account account) {
         return repository.findById(accountId).map(dbAccount -> {
             dbAccount.setName(account.getName());
             return repository.save(dbAccount);
@@ -36,7 +36,7 @@ class AccountService {
         });
     }
 
-    void deleteAccount(Long accountId) {
+    void deleteAccount(Integer accountId) {
         repository.deleteById(accountId);
     }
 }
