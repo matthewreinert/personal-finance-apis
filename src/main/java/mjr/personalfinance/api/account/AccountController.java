@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/accounts", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/accounts", produces = MediaType.APPLICATION_JSON_VALUE)
 class AccountController {
 
     private final AccountService service;
-    
+
     AccountController(AccountService service) {
-    	this.service = service;
+        this.service = service;
     }
 
     @PostMapping
